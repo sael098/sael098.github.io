@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -16,25 +15,26 @@
         data-callback="onSignIn">
     </div>
     <div class="g_id_signin"
-         data-type="standard">
+        data-type="standard">
     </div>
     <button
         id="boto-sortir"
         style="display:none;"
         onclick="signOut()">
-        Desconnectar
+        Desconectar
     </button>
-<script>
-    function onSignIn() {
-        document.getElementById('boto-sortir').style.display = 'block';
-        document.querySelector('.g_id_signin').style.display = 'none';
-    }
-
-    function signOut() {
-        google.accounts.id.disableAutoSelect();
-        document.getElementById('boto-sortir').style.display = 'none';
-        document.querySelector('.g_id_signin').style.display = 'block';
-    }
-</script>
+    <script>
+        function onSignIn(response) {
+            var id_token = response.credential;
+            console.log("ID Token: " + id_token);
+            document.getElementById('boto-sortir').style.display = 'block';
+            document.querySelector('.g_id_signin').style.display = 'none';
+        }
+        function signOut() {
+            google.accounts.id.disableAutoSelect();
+            document.getElementById('boto-sortir').style.display = 'none';
+            document.querySelector('.g_id_signin').style.display = 'block';
+        }
+    </script>
 </body>
 </html>
