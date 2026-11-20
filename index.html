@@ -14,26 +14,34 @@
         data-client_id="275495546358-r3bva4cd8smof04afmctflu77njd3pqj.apps.googleusercontent.com"
         data-callback="onSignIn">
     </div>
-    <div class="g_id_signin"
-        data-type="standard">
-    </div>
+    <div class="g_id_signin" data-type="standard"></div>
     <button
         id="boto-sortir"
         style="display:none;"
         onclick="signOut()">
         Desconectar
     </button>
+    <h2 id="missatge-benvinguda" style="display:none;">
+        Missatge de benvinguda
+    </h2>
     <script>
         function onSignIn(response) {
             var id_token = response.credential;
             console.log("ID Token: " + id_token);
+            const dades = JSON.parse(decodeURIComponent(escape(atob(
+                id_token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')
+            ))));
             document.getElementById('boto-sortir').style.display = 'block';
             document.querySelector('.g_id_signin').style.display = 'none';
+            const missatge = document.getElementById('missatge-benvinguda');
+            missatge.textContent = 'Benvingut/da, ' + dades.name;
+            missatge.style.display = 'block';
         }
         function signOut() {
             google.accounts.id.disableAutoSelect();
             document.getElementById('boto-sortir').style.display = 'none';
             document.querySelector('.g_id_signin').style.display = 'block';
+            document.getElementById('missatge-benvinguda').style.display = 'none';
         }
     </script>
 </body>
