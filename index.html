@@ -1,46 +1,262 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>PT 2.5 - GOOGLE SIGN IN</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Sign-In | Premium Access</title>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <meta name="google-signin-client_id" content="275495546358-r3bva4cd8smof04afmctflu77njd3pqi.apps.googleusercontent.com">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 25px;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            color: #fff;
+            background:
+                radial-gradient(ellipse at 15% 20%, rgba(91, 63, 220, .28), transparent 40%),
+                radial-gradient(ellipse at 85% 80%, rgba(0, 190, 255, .20), transparent 40%),
+                #080b16;
+            overflow-x: hidden;
+        }
+
+        .background-glow {
+            position: fixed;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            filter: blur(110px);
+            opacity: .25;
+            z-index: -1;
+        }
+
+        .glow-one {
+            background: #7548ff;
+            top: -100px;
+            left: -100px;
+        }
+
+        .glow-two {
+            background: #008cff;
+            bottom: -120px;
+            right: -80px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 470px;
+            padding: 48px 38px;
+            text-align: center;
+            background: rgba(17, 23, 43, .82);
+            border: 1px solid rgba(255, 255, 255, .12);
+            border-radius: 25px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, .5);
+            backdrop-filter: blur(18px);
+        }
+
+        .logo {
+            width: 76px;
+            height: 76px;
+            margin: 0 auto 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 22px;
+            font-size: 35px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #7555ff, #168fff);
+            box-shadow: 0 8px 30px rgba(91, 91, 255, .35);
+        }
+
+        .tag {
+            color: #9c9cff;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 13px;
+            letter-spacing: -.8px;
+        }
+
+        .subtitle {
+            color: #a6aec4;
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 32px;
+        }
+
+        .login-area {
+            padding: 23px 15px;
+            border: 1px solid rgba(255, 255, 255, .09);
+            border-radius: 16px;
+            background: rgba(255, 255, 255, .035);
+        }
+
+        .login-label {
+            color: #c5cbe0;
+            font-size: 13px;
+            margin-bottom: 19px;
+        }
+
+        .google-button {
+            display: flex;
+            justify-content: center;
+            min-height: 44px;
+        }
+
+        #missatge-benvinguda {
+            display: none;
+            margin-top: 25px;
+            padding: 17px;
+            border-radius: 13px;
+            background: rgba(49, 204, 139, .09);
+            border: 1px solid rgba(49, 204, 139, .3);
+            color: #78edb6;
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        #boto-sortir {
+            display: none;
+            width: 100%;
+            margin-top: 18px;
+            padding: 13px 20px;
+            border: 1px solid rgba(255, 255, 255, .16);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, .07);
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: .25s;
+        }
+
+        #boto-sortir:hover {
+            background: rgba(255, 80, 100, .18);
+            border-color: rgba(255, 100, 120, .5);
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            margin-top: 30px;
+            color: #737d98;
+            font-size: 11px;
+            letter-spacing: .5px;
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            margin-top: 23px;
+            color: #8e9bb6;
+            font-size: 11px;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #35d99a;
+            box-shadow: 0 0 10px #35d99a;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 38px 22px;
+            }
+
+            h1 {
+                font-size: 27px;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <h1>PT 2.5 - GOOGLE SIGN IN</h1>
-    <p>Página preparada para añadir el OAuth 2</p>
-    <div
-        id="g_id_onload"
-        data-client_id="275495546358-r3bva4cd8smof04afmctflu77njd3pqi.apps.googleusercontent.com"
-        data-callback="onSignIn">
-    </div>
-    <div class="g_id_signin" data-type="standard"></div>
-    <button
-        id="boto-sortir"
-        style="display:none;"
-        onclick="signOut()">
-        Desconectar
-    </button>
-    <h2 id="missatge-benvinguda" style="display:none;">
-        Missatge de benvinguda
-    </h2>
+    <div class="background-glow glow-one"></div>
+    <div class="background-glow glow-two"></div>
+
+    <main class="container">
+        <div class="logo">B</div>
+
+        <div class="tag">Secure authentication</div>
+        <h1>Benvingut al meu espai</h1>
+        <p class="subtitle">
+            Accedeix de manera segura amb el teu compte de Google
+            i descobreix una experiència senzilla i personalitzada.
+        </p>
+
+        <section class="login-area">
+            <p class="login-label">Inicia sessió per continuar</p>
+
+            <div
+                id="g_id_onload"
+                data-client_id="275495546358-r3bva4cd8smof04afmctflu77njd3pqi.apps.googleusercontent.com"
+                data-callback="onSignIn">
+            </div>
+
+            <div class="google-button">
+                <div class="g_id_signin"
+                     data-type="standard"
+                     data-theme="filled_black"
+                     data-size="large"
+                     data-shape="pill">
+                </div>
+            </div>
+        </section>
+
+        <h2 id="missatge-benvinguda"></h2>
+
+        <button id="boto-sortir" onclick="signOut()">
+            Desconnectar
+        </button>
+
+        <div class="status">
+            <span class="status-dot"></span>
+            Connexió segura mitjançant Google
+        </div>
+
+        <p class="footer">PT 2.5 · GOOGLE SIGN-IN · 2026</p>
+    </main>
+
     <script>
         function onSignIn(response) {
-            var id_token = response.credential;
+            const id_token = response.credential;
             console.log("ID Token: " + id_token);
+
             const dades = JSON.parse(decodeURIComponent(escape(atob(
                 id_token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')
             ))));
+
             document.getElementById('boto-sortir').style.display = 'block';
-            document.querySelector('.g_id_signin').style.display = 'none';
+            document.querySelector('.login-area').style.display = 'none';
+
             const missatge = document.getElementById('missatge-benvinguda');
             missatge.textContent = 'Benvingut/da, ' + dades.name;
             missatge.style.display = 'block';
         }
+
         function signOut() {
             google.accounts.id.disableAutoSelect();
+
             document.getElementById('boto-sortir').style.display = 'none';
-            document.querySelector('.g_id_signin').style.display = 'block';
+            document.querySelector('.login-area').style.display = 'block';
             document.getElementById('missatge-benvinguda').style.display = 'none';
         }
     </script>
